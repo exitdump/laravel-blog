@@ -11,7 +11,7 @@ class BlogRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class BlogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'description' => 'required',
+            'category_id' => 'nullable|exists:categories,id',
+            'author_id' => 'required|exists:users,id',
+            'featured_image' => 'nullable|image|mimes:jpg,png,webp,gif|max:2048',
+            'image_caption' => 'nullable|string|max:255',
+            'status' => 'required|in:draft,published,archived',
+            'is_featured' => 'boolean',
+            'is_recommended' => 'boolean',
         ];
     }
 }

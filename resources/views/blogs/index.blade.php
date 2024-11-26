@@ -7,6 +7,18 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            @if (session('success'))
+                <div role="alert" class="alert alert-success mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>{{ session('success') }}</span>
+                </div>
+            @endif
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
@@ -41,8 +53,10 @@
                                             </strong>
                                         </a>
                                     </td>
-                                    <td class="px-4 py-2 border">{{ \Illuminate\Support\Str::limit($blog->description, 100) }}</td>
-                                    <td class="px-4 py-2 border"> {{ $blog->category ? $blog->category->name : 'Uncategorized' }}</td>
+                                    <td class="px-4 py-2 border">
+                                        {{ \Illuminate\Support\Str::limit($blog->description, 100) }}</td>
+                                    <td class="px-4 py-2 border">
+                                        {{ $blog->category ? $blog->category->name : 'Uncategorized' }}</td>
                                     <td class="px-4 py-2 border">{{ $blog->author->name }}</td>
                                     <td class="px-4 py-2 border">{{ $blog->status }}</td>
                                     <td class="px-4 py-2 border">
