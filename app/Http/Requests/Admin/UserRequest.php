@@ -13,7 +13,7 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -33,6 +33,8 @@ class UserRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'role' => 'required|in:admin,author',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:2048'
         ];
     }
 }

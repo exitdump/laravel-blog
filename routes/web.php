@@ -14,7 +14,7 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->as('admin.')->group(function () {
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->except('show');
     Route::resource('blogs', BlogController::class);
     Route::resource('categories', CategoryController::class);
 });
