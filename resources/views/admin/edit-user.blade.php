@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900">
                     
                     <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow">
-                        <form action="{{ route('users.update', $user) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.users.update', $user) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             
