@@ -68,4 +68,11 @@ class BlogController extends Controller
 
         return to_route('admin.blogs.index')->with('success','blog updated successfully');
     }
+
+    public function destroy(Blog $blog)
+    {
+        $blog->delete();
+        
+        return to_route('admin.blogs.index')->with('success','blog deleted successfully');
+    }
 }
