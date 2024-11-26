@@ -11,7 +11,6 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
                 <!-- Main Section (Left) -->
                 <div class="col-span-2 bg-white shadow-sm rounded-lg p-6">
                     <h2 class="text-2xl font-semibold mb-4">Create New Blog</h2>
@@ -28,13 +27,14 @@
                     @endif
 
                     <!-- Blog Create Form -->
-                    <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.blogs.update', $blog) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
 
                         <!-- Title Field -->
                         <div class="mb-4">
                             <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                            <input type="text" name="title" id="title" value="{{ old('title') }}"
+                            <input type="text" name="title" id="title" value="{{ $blog->title }}"
                                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 required>
                         </div>
@@ -66,10 +66,10 @@
                             required>
                             <option value="">Select Status</option>
 
-                            <option value="{{ __('published') }}" {{ old('status') == 'published' ? 'selected' : '' }}>
+                            <option value="{{ __('published') }}" {{ $blog->status == 'published' ? 'selected' : '' }}>
                                 {{ __('published') }}
                             </option>
-                            <option value="{{ __('published') }}" {{ old('status') == 'draft' ? 'selected' : '' }}>
+                            <option value="{{ __('draft') }}" {{ $blog->status == 'draft' ? 'selected' : '' }}>
                                 {{ __('draft') }}
                             </option>
                         </select>
@@ -84,7 +84,7 @@
                             <option value="">Select Category</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"
-                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                    {{ $blog->category_id == $category->id ? 'selected' : '' }}>
                                     {{ $category->name }}
                                 </option>
                             @endforeach
@@ -107,29 +107,27 @@
                             class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             @foreach ($authors as $author)
                                 <option value="{{ $author->id }}"
-                                    {{ old('author_id') == $author->id ? 'selected' : '' }}>
+                                    {{ $blog->author_id == $author->id ? 'selected' : '' }}>
                                     {{ $author->name }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
 
-                    <!-- Is Recommended -->
                     <div class="mb-4">
                         <label for="is_featured" class="block text-sm font-medium text-gray-700">Is Featured?</label>
-                        <input type="checkbox" id="is_featured" name="is_featured" value="1" class="mt-1"
-                            @if (old('is_featured')) checked @endif>
+                        <input type="checkbox" id="is_featured" name="is_featured" value="1" class="mt-1" 
+                               @if(old('is_featured', $blog->is_featured ?? false)) checked @endif>
                         <p class="text-xs text-gray-500">Check if this blog should be featured.</p>
                     </div>
-
+                    
                     <div class="mb-4">
-                        <label for="is_recommended" class="block text-sm font-medium text-gray-700">Is
-                            Recommended?</label>
-                        <input type="checkbox" id="is_recommended" name="is_recommended" value="1" class="mt-1"
-                            @if (old('is_recommended')) checked @endif>
+                        <label for="is_recommended" class="block text-sm font-medium text-gray-700">Is Recommended?</label>
+                        <input type="checkbox" id="is_recommended" name="is_recommended" value="1" class="mt-1" 
+                               @if(old('is_recommended', $blog->is_recommended ?? false)) checked @endif>
                         <p class="text-xs text-gray-500">Check if this blog should be recommended.</p>
                     </div>
-
+                    
                 </div>
                 </form>
             </div>
@@ -138,6 +136,8 @@
 
     @push('scripts')
         <script type="text/javascript">
+
+            // Initialize Quill editor
             const quill = new Quill('#editor', {
                 theme: 'snow', // 'bubble' theme is also available
                 placeholder: 'Write your blog description here...',
@@ -164,8 +164,10 @@
                 }
             });
 
-            quill.root.innerHTML = document.getElementById('description').value;
+            // Set the initial editor content
+            quill.root.innerHTML = '{{ $blog->description }}';
 
+            // Update the textarea value when the editor content changes
             quill.on('text-change', function(delta, oldDelta, source) {
                 document.getElementById('description').value = quill.root.innerHTML;
             });
