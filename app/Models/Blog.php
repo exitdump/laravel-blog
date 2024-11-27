@@ -67,10 +67,31 @@ class Blog extends Model
      * Scopes
      */
 
+     public function scopeStatusFilter($query, $status)
+    {
+        if (in_array($status, ['published', 'draft', 'archived'])) {
+            return $query->where('status', $status);
+        }
+
+        return $query;
+    }
+
     // Scope for published blogs
     public function scopePublished($query)
     {
         return $query->where('status', 'published');
+    }
+
+    // Scope for draft blogs
+    public function scopeDraft($query)
+    {
+        return $query->where('status', 'draft');
+    }
+
+    // Scop for archived blogs
+    public function scopeArchived($query)
+    {
+        return $query->where('status', 'archived');
     }
 
     // Scope for featured blogs

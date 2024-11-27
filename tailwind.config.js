@@ -21,4 +21,15 @@ export default {
         forms,
         require('daisyui'),
     ],
+    daisyui: {
+
+        // ... other DaisyUI options
+
+        // darkTheme: false // To completely disable dark mode
+
+        // Or:
+
+        darkTheme: "nonexistentTheme" // To use a non-existent theme 
+
+    }
 };
