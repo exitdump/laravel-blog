@@ -8,20 +8,20 @@ use App\Http\Requests\Admin\UpdateBlogRequest;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\User;
+use App\Services\BlogService;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function index(Request $request)
+    protected $blogService;
+
+    public function __construct(BlogService $blogService)
     {
-        $status = $request->query('status');
-
-
-        $blogs = Blog::with(['author:id,name', 'category:id,name'])
-                    ->statusFilter($status) // Apply the status filter scope
-                    ->select('id', 'title', 'description', 'category_id', 'author_id', 'status')
-                    ->latest('created_at')
-                    ->paginate(10);
+        $this->blogService = $blogService;
+    }
+    public function index(Request $request, BlogService $blogService)
+    {
+        $blogs = $this->blogService->getFilteredBlogs($request->query());
 
         return view('blogs.index', compact('blogs'));
     }
