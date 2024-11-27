@@ -66,11 +66,28 @@ class Blog extends Model
     /**
      * Scopes
      */
-
+    // Scop to filter by status
      public function scopeStatusFilter($query, $status)
     {
         if (in_array($status, ['published', 'draft', 'archived'])) {
             return $query->where('status', $status);
+        }
+
+        return $query;
+    }
+
+    // Scop to filter by Author
+    public function scopeAuthorFilter($query, $authorId)
+    {
+        if ($authorId) {
+            return $query->where('author_id', $authorId);
+        }
+    }
+    // Scope to filter by category
+    public function scopeCategoryFilter($query, $categoryId)
+    {
+        if ($categoryId) {
+            return $query->where('category_id', $categoryId);
         }
 
         return $query;
