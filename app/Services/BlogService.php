@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Blog;
+use App\Models\Category;
+use App\Models\User;
 
 class BlogService
 {
@@ -23,8 +25,8 @@ class BlogService
             $query->statusFilter($filters['status']);
         }
 
-        if (isset($filters['by'])) {
-            $query->authorFilter($filters['by']);
+        if (isset($filters['author'])) {
+            $query->authorFilter($filters['author']);
         }
 
         if (isset($filters['category'])) {
@@ -32,5 +34,15 @@ class BlogService
         }
 
         return $query->paginate(10);
+    }
+
+    public function getAllCategories()
+    {
+        return Category::select('id', 'name')->get();
+    }
+
+    public function getAllAuthors()
+    {
+        return User::select('id', 'name')->get();
     }
 }

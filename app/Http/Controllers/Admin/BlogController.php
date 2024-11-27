@@ -21,9 +21,11 @@ class BlogController extends Controller
     }
     public function index(Request $request, BlogService $blogService)
     {
+        $categories = $this->blogService->getAllCategories();
+        $authors = $this->blogService->getAllAuthors();
         $blogs = $this->blogService->getFilteredBlogs($request->query());
 
-        return view('blogs.index', compact('blogs'));
+        return view('blogs.index', compact( 'categories', 'authors', 'blogs'));
     }
 
     public function create()

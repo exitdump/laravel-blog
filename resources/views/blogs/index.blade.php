@@ -82,32 +82,32 @@
 
             <!-- Filter Section -->
             <form method="GET" action="{{ route('admin.blogs.index') }}" class="mb-4 flex space-x-4">
-                <select name="category" class="select select-bordered w-40" onchange="this.form.submit()">
+                <select name="category" class="select select-bordered w-40">
                     <option value="">Filter by Category</option>
-                    {{-- @foreach ($categories as $category)
+                    @foreach ($categories as $category)
                         <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
-                    @endforeach --}}
+                    @endforeach
                 </select>
 
-                <select name="author" class="select select-bordered w-40" onchange="this.form.submit()">
+                <select name="author" class="select select-bordered w-40">
                     <option value="">Filter by Author</option>
-                    {{-- @foreach ($authors as $author)
+                    @foreach ($authors as $author)
                         <option value="{{ $author->id }}" {{ request('author') == $author->id ? 'selected' : '' }}>
                             {{ $author->name }}
                         </option>
-                    @endforeach --}}
+                    @endforeach
                 </select>
 
-                <select name="status" class="select select-bordered w-40" onchange="this.form.submit()">
+                <select name="status" class="select select-bordered w-40">
                     <option value="">Filter by Status</option>
                     <option value="published" {{ request('status') == 'published' ? 'selected' : '' }}>Published</option>
                     <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
                     <option value="archived" {{ request('status') == 'archived' ? 'selected' : '' }}>Archived</option>
                 </select>
 
-                <button type="submit" class="btn btn-primary">Apply</button>
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
             </form>
                 </div>
                 <table class="min-w-full table-auto border-collapse">
