@@ -38,28 +38,28 @@
                         <li>
                             <a href="{{ route('admin.blogs.index', ['status' => 'published']) }}"
                                 class="hover:underline {{ request('status') === 'published' ? 'text-indigo-600 font-semibold' : '' }}">
-                                Published ({{ '63' }})
+                                Published ({{ $totalBlog['published'] }})
                             </a>
                         </li>
                         <span>|</span>
                         <li>
                             <a href="{{ route('admin.blogs.index', ['status' => 'draft']) }}"
                                 class="hover:underline {{ request('status') === 'draft' ? 'text-indigo-600 font-semibold' : '' }}">
-                                Draft ({{ '20' }})
+                                Draft ({{ $totalBlog['draft'] }})
                             </a>
                         </li>
                         <span>|</span>
                         <li>
                             <a href="{{ route('admin.blogs.index', ['status' => 'archived']) }}"
                                 class="hover:underline {{ request('status') === 'archived' ? 'text-indigo-600 font-semibold' : '' }}">
-                                Archived ({{ '25' }})
+                                Archived ({{ $totalBlog['archived'] }})
                             </a>
                         </li>
                         <span>|</span>
                         <li>
                             <a href="{{ route('admin.blogs.index') }}"
                                 class="hover:underline {{ !request('status') ? 'text-indigo-600 font-semibold' : '' }}">
-                                All ({{ '59' }})
+                                All ({{ $totalBlog['published'] + $totalBlog['draft'] + $totalBlog['archived'] }})
                             </a>
                         </li>
                     </ul>

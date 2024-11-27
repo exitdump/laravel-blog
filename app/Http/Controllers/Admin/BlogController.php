@@ -23,9 +23,10 @@ class BlogController extends Controller
     {
         $categories = $this->blogService->getAllCategories();
         $authors = $this->blogService->getAllAuthors();
-        $blogs = $this->blogService->getFilteredBlogs($request->query());
+        $totalBlog = $this->blogService->getTotalCounts();
+        $blogs = $this->blogService->getFilteredBlogs($request, $request->query());
 
-        return view('blogs.index', compact( 'categories', 'authors', 'blogs'));
+        return view('blogs.index', compact( 'categories', 'authors', 'totalBlog', 'blogs'));
     }
 
     public function create()
