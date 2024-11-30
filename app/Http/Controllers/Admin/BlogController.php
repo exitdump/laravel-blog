@@ -26,7 +26,7 @@ class BlogController extends Controller
         $totalBlog = $this->blogService->getTotalCounts();
         $blogs = $this->blogService->getFilteredBlogs($request, $request->query());
 
-        return view('blogs.index', compact( 'categories', 'authors', 'totalBlog', 'blogs'));
+        return view('admin.blogs.index', compact( 'categories', 'authors', 'totalBlog', 'blogs'));
     }
 
     public function create()
@@ -34,7 +34,7 @@ class BlogController extends Controller
         $categories = Category::select('id', 'name')->get();
         $authors = User::select('id', 'name')->where('role', 'author')->get();
 
-        return view('blogs.create', compact('categories', 'authors'));
+        return view('admin.blogs.create', compact('categories', 'authors'));
     }
 
     public function store(StoreBlogRequest $request)
@@ -55,7 +55,7 @@ class BlogController extends Controller
         $categories = Category::select('id', 'name')->get();
         $authors = User::select('id', 'name')->where('role', 'author')->get();
 
-        return view('blogs.edit', compact('blog', 'categories', 'authors'));
+        return view('admin.blogs.edit', compact('blog', 'categories', 'authors'));
     }
 
     public function update(UpdateBlogRequest $request, Blog $blog)

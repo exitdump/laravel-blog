@@ -11,13 +11,13 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     public function create()
     {
         $categories = Category::all(); // For the parent category dropdown
-        return view('categories.create', compact('categories'));
+        return view('admin.categories.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -37,7 +37,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $categories = Category::all(); // For the parent category dropdown
-        return view('categories.edit', compact('category', 'categories'));
+        return view('admin.categories.edit', compact('category', 'categories'));
     }
 
     public function update(Request $request, Category $category)
