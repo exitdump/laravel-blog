@@ -3,7 +3,7 @@
     <div class="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
         <!-- Featured Image -->
         <div class="relative rounded-lg overflow-hidden shadow-lg">
-            <img src="{{ $blog->featured_image ?? asset('images/default.png') }}" 
+            <img src="{{ asset('storage/' . $blog->featured_image) ?? asset('storage/' . 'images/no_thumbnail.png') }}" 
                  alt="{{ $blog->title }}" 
                  class="w-full h-96 object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-80"></div>
@@ -17,13 +17,13 @@
         <div class="max-w-3xl mx-auto mt-10">
             <div class="flex items-center gap-4 mb-6">
                 <div class="flex-shrink-0">
-                    <img src="{{ $blog->author->avatar ?? asset('images/default-avatar.png') }}" 
+                    <img src="{{ $blog->author->avatar ?? asset('storage/' .'images/default-avatar.png') }}" 
                          alt="{{ $blog->author->name }}" 
                          class="h-12 w-12 rounded-full object-cover">
                 </div>
                 <div>
                     <p class="text-lg font-semibold">{{ $blog->author->name }}</p>
-                    {{-- <p class="text-sm text-gray-500">{{ $blog->publish_date->format('F j, Y') }}</p> --}}
+                    <p class="text-sm text-gray-500">{{'Published on : ' . $blog->created_at->format('F j, Y') }}</p>
                 </div>
             </div>
 
