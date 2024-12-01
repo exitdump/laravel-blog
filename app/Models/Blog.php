@@ -35,7 +35,9 @@ class Blog extends Model
     // Blog belongs to a category
     public function category()
     {
-        return $this->belongsTo(Category::class );
+        return $this->belongsTo(Category::class )->withDefault([
+            'slug' => 'uncategorized', // Fallback slug
+        ]);
     }
 
     // Blog belongs to an author
@@ -47,6 +49,11 @@ class Blog extends Model
     /**
      * Accessors & Mutators
      */
+
+     public function getRouteKeyName()
+    {
+        return 'slug'; // Use the 'slug' column for route model binding
+    }
 
     // Generate slug automatically from title
     public function setTitleAttribute($value)

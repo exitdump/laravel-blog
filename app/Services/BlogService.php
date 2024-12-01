@@ -18,7 +18,7 @@ class BlogService
     public function getFilteredBlogs(Request $request, array $filters)
     {
         $query = Blog::with(['author:id,name', 'category:id,name'])
-                     ->select('id', 'title', 'description', 'category_id', 'author_id', 'status')
+                     ->select('id', 'slug', 'title', 'description', 'category_id', 'author_id', 'status')
                      ->latest('created_at');
 
         // Apply filters dynamically

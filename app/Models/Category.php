@@ -35,4 +35,9 @@ class Category extends Model
     {
         return $this->hasMany(Blog::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug'; // Use the 'slug' column for route model binding
+    }
 }

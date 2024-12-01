@@ -11,7 +11,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->as('admin.')->group(function () {
     Route::resource('users', UserController::class)->except('show');
@@ -22,6 +21,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->as('admin.')->group(funct
 // Author Routes
 Route::middleware(['auth', 'author'])->prefix('author')->as('author.')->group(function () {
     Route::resource('blogs', \App\Http\Controllers\Author\BlogController::class);
+});
+
+Route::middleware(['auth','verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
+
+    Route::get('/{category}/{blog}', [DashboardController::class,'single'])
+    ->where(['category' => '[a-zA-Z0-9-_]+', 'blog' => '[a-zA-Z0-9-_]+'])->name('single');
 });
 
 Route::middleware('auth')->group(function () {

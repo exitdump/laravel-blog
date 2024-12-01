@@ -70,7 +70,7 @@
                         </p>
                         <p class="text-gray-700">{{ \Illuminate\Support\Str::limit($featuredBlog->description, 150) }}
                         </p>
-                        <a href="#" class="text-blue-500 hover:underline mt-2 inline-block">Read More</a>
+                        <a href="{{ route('single', [$featuredBlog->category, $featuredBlog]) }}" class="text-blue-500 hover:underline mt-2 inline-block">Read More</a>
                     </div>
                 @else
                     <p class="text-gray-500">No featured blog available.</p>
@@ -90,7 +90,7 @@
                                 </p>
                                 <p class="text-gray-700">{{ \Illuminate\Support\Str::limit($blog->description, 100) }}
                                 </p>
-                                <a href="#" class="text-blue-500 hover:underline mt-2 inline-block">Read More</a>
+                                <a href="{{ route('single', [$blog->category->slug ?? 'uncategorized', $blog]) }}" class="text-blue-500 hover:underline mt-2 inline-block">Read More</a>
                             </div>
                         @endforeach
                     </div>
@@ -105,7 +105,7 @@
                 <ul>
                     @forelse($latestBlogs as $blog)
                         <li class="mb-4">
-                            <a href="#"
+                            <a href="{{ route('single', [$blog->category->slug ?? 'uncategorized', $blog]) }}"
                                 class="font-semibold text-gray-900 hover:underline">{{ $blog->title }}</a>
                             <p class="text-sm text-gray-500">Published on: {{ $blog->created_at->format('M d, Y') }}
                             </p>

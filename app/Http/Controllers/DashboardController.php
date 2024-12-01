@@ -40,4 +40,14 @@ class DashboardController extends Controller
 
         return view('dashboard', compact('latestBlogs', 'featuredBlog', 'recommendedBlogs', 'total'));
     }
+
+    public function single(Category $category, Blog $blog)
+    {
+        // Check if the blog belongs to the category
+        if ($blog->category_id !== $category->id) {
+            abort(404); // Return a 404 error if it doesn't match
+        }
+
+        return view('single', compact('blog', 'category'));
+    }
 }
